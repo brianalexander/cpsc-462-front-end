@@ -1,6 +1,10 @@
 import React from "react";
 import Board from "./board";
+import io from 'socket.io-client';
+
+ 
 import './game.css'
+const socket = io('http://localhost:3000');
 
 class Game extends React.Component {
   render() {
