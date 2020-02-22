@@ -1,4 +1,6 @@
 import React from "react";
+import ChatInputBox from "./ChatInputBox";
+import ChatOutputBox from "./ChatOutputBox";
 
 class ChatWindow extends React.Component {
   constructor(props) {
@@ -6,7 +8,12 @@ class ChatWindow extends React.Component {
   }
 
   render() {
-    return <div></div>;
+    return (
+      <div id="chatWindow">
+        <ChatOutputBox />
+        <ChatInputBox />
+      </div>
+    );
   }
 }
 
