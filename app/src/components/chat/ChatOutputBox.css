@@ -1,0 +1,11 @@
+#chatOutputBox {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+#chatOutputBox li {
+  padding: 5px 10px;
+}
+#chatOutputBox li:nth-child(odd) {
+  background: #eee;
+}
