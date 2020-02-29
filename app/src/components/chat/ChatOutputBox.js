@@ -1,10 +1,22 @@
 import React from "react";
+import "./ChatOutputBox.css";
 
 class ChatOutputBox extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       messages: [
+        { sender: "test1", text: "Hello world!" },
+        { sender: "test1", text: "Hello world!" },
+        { sender: "test1", text: "Hello world!" },
+        { sender: "test1", text: "Hello world!" },
+        { sender: "test1", text: "Hello world!" },
+        { sender: "test1", text: "Hello world!" },
+        { sender: "test1", text: "Hello world!" },
+        { sender: "test1", text: "Hello world!" },
+        { sender: "test1", text: "Hello world!" },
+        { sender: "test1", text: "Hello world!" },
+        { sender: "test1", text: "Hello world!" },
         { sender: "test1", text: "Hello world!" },
         { sender: "test2", text: "Yo world!" }
       ]
