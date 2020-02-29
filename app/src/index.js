@@ -1,9 +1,11 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
+import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
 import App from "./App";
 import Game from "./components/game/game";
 import ChatWindow from "./components/chat/ChatWindow";
+import UserList from "./components/userlist/UserList";
 import * as serviceWorker from "./serviceWorker";
 
 // ReactDOM.render(<App />, document.getElementById("root"));

@@ -1,11 +1,32 @@
-#chatOutputBox {
+ul#chatOutputBox {
   list-style-type: none;
   margin: 0;
+  margin-bottom: 5px;
   padding: 0;
+  background-color: blanchedalmond;
+  height: 200px;
+  width: 100%;
+  /* for bottom up messaging */
+  overflow-y: hidden;
+  vertical-align: bottom;
+  display: inline-block;
+  transform: rotate(180deg);
+  direction: rtl;
 }
+
+ul#chatOutputBox:hover,
+ul#chatOutputBox:active,
+ul#chatOutputBox:focus {
+  overflow-y: auto;
+}
+
 #chatOutputBox li {
   padding: 5px 10px;
+  /* for bottom up messaging */
+  transform: rotate(180deg);
+  direction: ltr;
 }
+
 #chatOutputBox li:nth-child(odd) {
   background: #eee;
 }
