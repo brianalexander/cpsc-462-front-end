@@ -5,10 +5,10 @@ import React from "react";
 // import logo from "./logo.svg";
 import "./App.css";
 
-import UserList from "./components/userlist/UserList";
+import ChatWindow from "./components/chat/ChatWindow";
 
 const App = () => {
-  return <UserList />;
+  return <ChatWindow />;
 };
 
 export default App;

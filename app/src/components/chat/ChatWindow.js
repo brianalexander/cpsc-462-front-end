@@ -5,32 +5,21 @@ import UserList from "../userlist/UserList";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
+
+// Assets
 import "./ChatWindow.css";
 
 class ChatWindow extends React.Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      socket,
-      users: []
-    };
-  }
-
-  handleClicked = text => {
-    console.log(text);
-  };
-
   render() {
     return (
       <Container fluid id="chatwindow">
         <Row noGutters>
           <Col className="mr-2">
             <ChatOutputBox />
-            <ChatInputBox returnText={this.handleClicked} />
+            <ChatInputBox />
           </Col>
           <Col md="auto">
-            <UserList users={this.state.users} />
+            <UserList />
           </Col>
         </Row>
       </Container>

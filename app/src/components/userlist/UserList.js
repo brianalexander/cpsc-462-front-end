@@ -3,21 +3,25 @@ import React from "react";
 import UserItem from "./UserItem";
 
 // Redux Imports
-import { useSelector } from "react-redux";
-// import { addUser, removeUser } from "./redux/userListSlice";
+import { connect } from "react-redux";
 
 // Assets
 import "./UserList.css";
 
-function UserList(props) {
-  const { users } = useSelector(state => state.userList);
-  console.log("USERLIST", users);
-
-  const useritems = users.map(user => {
-    return <UserItem id={user} />;
+const UserList = props => {
+  const useritems = props.users.map((user, index) => {
+    return <UserItem id={user} key={index} />;
   });
 
   return <ul id="userlist">{useritems}</ul>;
-}
+};
 
-export default UserList;
+const mapStateToProps = state => {
+  return {
+    users: state.userList.users
+  };
+};
+
+const mapDispatchToProps = {};
+
+export default connect(mapStateToProps, mapDispatchToProps)(UserList);
