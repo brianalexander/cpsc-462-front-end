@@ -5,13 +5,21 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Button from "react-bootstrap/Button";
 
+// Redux Imports
+import { connect } from "react-redux";
+import { createGame } from "./redux/lobbySlice";
+
 // Assets
 // import logo from "./logo.svg";
 import "./App.css";
 
 import ChatWindow from "./components/chat/ChatWindow";
+import Lobby from "./components/lobby/Lobby";
 
-const App = () => {
+const App = props => {
+  const createGameHandler = event => {
+    props.createGame({ name: "randomName" });
+  };
   return (
     <Container fluid>
       <Row>
@@ -19,7 +27,9 @@ const App = () => {
           <Button block>About</Button>
         </Col>
         <Col>
-          <Row></Row>
+          <Row>
+            <Lobby />
+          </Row>
           <Row>
             <ChatWindow />
           </Row>
@@ -27,7 +37,9 @@ const App = () => {
         <Col md="auto">
           <Row>
             <Col>
-              <Button block>+</Button>
+              <Button block onClick={createGameHandler}>
+                +
+              </Button>
             </Col>
           </Row>
           <Row>
@@ -41,4 +53,10 @@ const App = () => {
   );
 };
 
-export default App;
+const mapStateToProps = state => {
+  return {};
+};
+
+const mapDispatchToProps = { createGame };
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);
