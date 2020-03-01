@@ -12,23 +12,16 @@ const chatSlice = createSlice({
   name: "chat",
   initialState,
   reducers: {
-    sendPublicMessage(state, action) {
-      const { text } = action.payload;
-      socket.send(messageMaker("public", { text }));
-    },
     addPublicMessage(state, action) {
       const { sender, text } = action.payload;
       state.public = [{ sender, timestamp: Date.now(), text }, ...state.public];
     },
-    sendGameMessage(state, action) {},
+
     addGameMessage(state, action) {
       const { sender, text } = action.payload;
       state.game = [{ sender, timestamp: Date.now(), text }, ...state.public];
     },
-    sendPrivateMessage(state, action) {
-      const { target, text } = action.payload;
-      socket.send(messageMaker("public", { target, text }));
-    },
+
     addPrivateMessage(state, action) {
       const { sender, text } = action.payload;
       state.private = {
@@ -38,6 +31,15 @@ const chatSlice = createSlice({
           ...state.private[sender]
         ]
       };
+    },
+    sendPublicMessage(state, action) {
+      const { text } = action.payload;
+      socket.send(messageMaker("public", { text }));
+    },
+    sendGameMessage(state, action) {},
+    sendPrivateMessage(state, action) {
+      const { target, text } = action.payload;
+      socket.send(messageMaker("public", { target, text }));
     }
   }
 });

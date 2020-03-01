@@ -2,7 +2,6 @@ import React from "react";
 
 // Redux Imports
 import { connect } from "react-redux";
-import { addPublicMessage, addPrivateMessage } from "../../redux/chatSlice";
 
 // Assets
 import "./ChatOutputBox.css";

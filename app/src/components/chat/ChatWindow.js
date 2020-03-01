@@ -9,43 +9,26 @@ import Col from "react-bootstrap/Col";
 // Assets
 import "./ChatWindow.css";
 
-class ChatWindow extends React.Component {
-  render() {
-    return (
-      <Container fluid id="chatwindow">
-        <Row noGutters>
-          <Col className="mr-2">
-            <ChatOutputBox />
-            <ChatInputBox />
-          </Col>
-          <Col md="auto">
-            <UserList />
-          </Col>
-        </Row>
-      </Container>
-    );
-  }
+const ChatWindow = props => {
+  return (
+    <Container className="p-0" fluid id="chatwindow">
+      <Row noGutters>
+        <Col className="mr-2">
+          <ChatOutputBox />
+          <ChatInputBox />
+        </Col>
+        <Col md="auto">
+          <UserList />
+        </Col>
+      </Row>
+    </Container>
+  );
+};
 
-  componentWillUnmount() {
-    if (this.state.socket !== null) {
-      this.state.socket.close();
-    }
-  }
-}
+// componentWillUnmount() {
+//   if (this.state.socket !== null) {
+//     this.state.socket.close();
+//   }
+// }
 
-function addPublicMessage(time, sender, text) {
-  addText(time, sender, text, "public");
-}
-
-function addPrivateMessage(time, sender, text) {
-  addText(time, sender, text, "private");
-}
-
-function addText(time, sender, text, className) {
-  // $("#messages").append(
-  //   $("<li>")
-  //     .addClass(className)
-  //     .text("[" + sender + "(" + time + ")" + "]" + ": " + text)
-  // );
-}
 export default ChatWindow;

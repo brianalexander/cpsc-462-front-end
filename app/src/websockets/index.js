@@ -19,9 +19,7 @@ const registerWebSockets = (connectionURI = "ws://localhost:3000") => {
     // console.log(type, payload);
     switch (type) {
       case "userlist":
-        {
-          store.dispatch(addUser(payload));
-        }
+        store.dispatch(addUser(payload));
         break;
       case "connected":
         {
@@ -30,14 +28,12 @@ const registerWebSockets = (connectionURI = "ws://localhost:3000") => {
         }
         break;
       case "private":
-        {
-          store.dispatch(addPrivateMessage(payload));
-        }
+        store.dispatch(addPrivateMessage(payload));
         break;
       case "public":
-        {
-          store.dispatch(addPublicMessage(payload));
-        }
+        store.dispatch(addPublicMessage(payload));
+        break;
+      default:
         break;
     }
   };
