@@ -6,12 +6,17 @@ import ReactDOM from "react-dom";
 import { Provider } from "react-redux";
 import store from "./redux/store";
 
+// WebSocket Imports
+import registerWebSocket from "./websockets";
+
 // CSS Imports
 import "./index.css";
 import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
 import App from "./App";
 
 import * as serviceWorker from "./serviceWorker";
+
+registerWebSocket("ws://localhost:3000");
 
 // ReactDOM.render(<App />, document.getElementById("root"));
 ReactDOM.render(
