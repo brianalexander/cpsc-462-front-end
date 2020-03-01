@@ -1,55 +1,70 @@
-import React from "react";
+// React Imports
+import React, { useState } from "react";
 import Button from "react-bootstrap/Button";
 import InputGroup from "react-bootstrap/InputGroup";
 import FormControl from "react-bootstrap/FormControl";
+
+// Redux Imports
+import { connect } from "react-redux";
+import { sendPublicMessage, sendPrivateMessage } from "../../redux/chatSlice";
+
+// Assets
 import "./ChatInputBox.css";
 
-class ChatInputBox extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      value: ""
-    };
+const ChatInputBox = props => {
+  const [input, setInput] = useState("");
 
-    this.updateChatText = this.updateChatText.bind(this);
-    this.sendClicked = this.sendClicked.bind(this);
-  }
-
-  sendClicked(event) {
-    // TODO: Add clicked logic here
+  const sendMessage = event => {
     event.preventDefault();
-    this.props.returnText(this.state.value);
-    this.setState({ value: "" });
-  }
+    if (input !== "") {
+      if (input[0] === "@") {
+        const idRegex = /^@(.+)\s(.+)/;
+        // not a typo, the first comma ignores first value
+        const [, target, text] = input.match(idRegex);
+        props.sendPrivateMessage({ target, text });
+      } else {
+        const text = input;
+        props.sendPublicMessage({ text });
+      }
 
-  updateChatText(event) {
-    this.setState({ value: event.target.value });
-  }
+      setInput("");
+    }
 
-  render() {
-    return (
-      <div>
-        <InputGroup>
-          <FormControl
+    return false;
+  };
+
+  const handleInputChange = event => {
+    setInput(event.target.value);
+  };
+
+  return (
+    <div>
+      <InputGroup>
+        <FormControl
+          className="rounded-0"
+          placeholder="Enter message..."
+          aria-label="Chat Message Text"
+          onChange={handleInputChange}
+          value={input}
+        />
+        <InputGroup.Append>
+          <Button
             className="rounded-0"
-            placeholder="Enter message..."
-            aria-label="Recipient's username"
-            onChange={this.updateChatText}
-            value={this.state.value}
-          />
-          <InputGroup.Append>
-            <Button
-              className="rounded-0"
-              onClick={this.sendClicked}
-              variant="secondary"
-            >
-              Send
-            </Button>
-          </InputGroup.Append>
-        </InputGroup>
-      </div>
-    );
-  }
-}
+            onClick={sendMessage}
+            variant="secondary"
+          >
+            Send
+          </Button>
+        </InputGroup.Append>
+      </InputGroup>
+    </div>
+  );
+};
 
-export default ChatInputBox;
+const mapStateToProps = state => {
+  return {};
+};
+
+const mapDispatchToProps = { sendPublicMessage, sendPrivateMessage };
+
+export default connect(mapStateToProps, mapDispatchToProps)(ChatInputBox);

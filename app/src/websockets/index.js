@@ -1,5 +1,11 @@
+// Redux Imports
 import store from "../redux/store";
 import { addUser, removeUser } from "../redux/userListSlice";
+import {
+  addPublicMessage,
+  addGameMessage,
+  addPrivateMessage
+} from "../redux/chatSlice";
 
 const registerWebSockets = (connectionURI = "ws://localhost:3000") => {
   socket = new WebSocket(connectionURI);
@@ -21,20 +27,16 @@ const registerWebSockets = (connectionURI = "ws://localhost:3000") => {
         {
           const { id } = payload;
           socket.id = id;
-          // document.getElementById("text").disabled = false;
-          // document.getElementById("send").disabled = false;
         }
         break;
       case "private":
         {
-          const { sender, text } = payload;
-          // addPrivateMessage(Date.now(), sender, text);
+          store.dispatch(addPrivateMessage(payload));
         }
         break;
       case "public":
         {
-          const { sender, text } = payload;
-          // addPublicMessage(Date.now(), sender, text);
+          store.dispatch(addPublicMessage(payload));
         }
         break;
     }
