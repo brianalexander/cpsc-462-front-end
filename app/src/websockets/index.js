@@ -6,6 +6,7 @@ import {
   addGameMessage,
   addPrivateMessage
 } from "../redux/chatSlice";
+import { refreshGames } from "../redux/lobbySlice";
 
 const registerWebSockets = (connectionURI = "ws://localhost:3000") => {
   socket = new WebSocket(connectionURI);
@@ -18,6 +19,9 @@ const registerWebSockets = (connectionURI = "ws://localhost:3000") => {
     const { type, payload } = JSON.parse(data);
     // console.log(type, payload);
     switch (type) {
+      case "refresh-games":
+        store.dispatch(refreshGames(payload));
+        break;
       case "userlist":
         store.dispatch(addUser(payload));
         break;

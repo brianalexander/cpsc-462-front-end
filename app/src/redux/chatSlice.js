@@ -1,4 +1,7 @@
+// Redux Imports
 import { createSlice } from "@reduxjs/toolkit";
+
+//WebSocket Imports
 import { socket } from "../websockets";
 import { messageMaker } from "../websockets/functions";
 
