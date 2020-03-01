@@ -1,8 +1,8 @@
 // React Imports
-import React, { Component } from "react";
+import React from "react";
 
 // Assets
-import logo from "./logo.svg";
+// import logo from "./logo.svg";
 import "./App.css";
 
 import UserList from "./components/userlist/UserList";

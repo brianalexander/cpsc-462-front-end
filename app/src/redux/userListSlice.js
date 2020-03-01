@@ -1,7 +1,12 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+// Redux Imports
+import { createSlice } from "@reduxjs/toolkit";
+
+// Socket Imports
+// import { socket } from "../websockets";
+// import {} from "../websockets/functions";
 
 let initialState = {
-  users: [{id:"one"},{id:"two"},{id:"three"}]
+  users: []
 };
 
 const userListSlice = createSlice({
@@ -9,8 +14,9 @@ const userListSlice = createSlice({
   initialState,
   reducers: {
     addUser(state, action) {
-      const { user } = action.payload;
-      state.users = [...state.users, user];
+      const { users } = action.payload;
+      state.users = [...users];
+      console.log(state.users);
     },
     removeUser(state, action) {
       const { user } = action.payload;
@@ -19,5 +25,5 @@ const userListSlice = createSlice({
   }
 });
 
-export const { addUser, removeUser } = userListSlice;
+export const { addUser, removeUser } = userListSlice.actions;
 export default userListSlice.reducer;
