@@ -18,6 +18,7 @@ import "./App.css";
 import ChatWindow from "./components/chat/ChatWindow";
 import Lobby from "./components/lobby/Lobby";
 import JoinModal from "./components/popups/JoinModal";
+import VerticalButtonGroup from "./components/button/VerticalButtonGroup";
 
 const App = props => {
 
@@ -66,9 +67,10 @@ const App = props => {
         <Col md="auto">
           <Row>
             <Col>
-              <Button block onClick={createGameHandler}>
-                +
-              </Button>
+              <VerticalButtonGroup />
+              {/* <Button block onClick={createGameHandler}>
+                +                
+              </Button> */}
             </Col>
           </Row>
           <Row>
