@@ -67,10 +67,10 @@ const App = props => {
         <Col md="auto">
           <Row>
             <Col>
-              <VerticalButtonGroup />
-              {/* <Button block onClick={createGameHandler}>
+              {/* <VerticalButtonGroup /> */}
+              <Button block onClick={createGameHandler}>
                 +                
-              </Button> */}
+              </Button>
             </Col>
           </Row>
           <Row>
