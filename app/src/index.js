@@ -6,6 +6,9 @@ import ReactDOM from "react-dom";
 import { Provider } from "react-redux";
 import store from "./redux/store";
 
+// React Router Imports
+import { BrowserRouter } from "react-router-dom";
+
 // WebSocket Imports
 import registerWebSocket from "./websockets";
 
@@ -21,7 +24,9 @@ registerWebSocket("ws://localhost:3000");
 // ReactDOM.render(<App />, document.getElementById("root"));
 ReactDOM.render(
   <Provider store={store}>
-    <App />
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
   </Provider>,
   document.getElementById("root")
 );
