@@ -25,6 +25,8 @@ import Lobby from "../components/lobby/Lobby";
 
 const Home = props => {
   const [createGameModalShow, setCreateGameModalShow] = useState(false);
+  const [createGameSpinnerShow, setCreateGameSpinnerShow] = useState(false);
+
   const history = useHistory();
   const dispatch = useDispatch();
 
@@ -67,16 +69,22 @@ const Home = props => {
       </Row>
       <CreateGameModal
         show={createGameModalShow}
+        showSpinner={createGameSpinnerShow}
         onHide={() => {
           setCreateGameModalShow(false);
         }}
         handleCreateGame={event => {
+          // TODO: SHOW SPINNER
+          setCreateGameSpinnerShow(true);
           dispatch(createTicTacToeGame({ name: "randomName" }))
             .then(({ payload }) => {
               history.push(`game/${payload.id}`);
             })
             .catch(args => {
               console.log("ERROR", args);
+            })
+            .finally(() => {
+              setCreateGameSpinnerShow(false);
             });
         }}
       />

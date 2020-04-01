@@ -1,5 +1,6 @@
 import React from "react";
 
+import Spinner from "react-bootstrap/Spinner";
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
 
@@ -23,7 +24,17 @@ function CreateGameModal(props) {
           Cancel
         </Button>
         <Button onClick={props.handleCreateGame} variant="success">
-          Create
+          {props.showSpinner ? (
+            <Spinner
+              as="span"
+              animation="border"
+              size="sm"
+              role="status"
+              aria-hidden="true"
+            />
+          ) : (
+            "Create"
+          )}
         </Button>
       </Modal.Footer>
     </Modal>
