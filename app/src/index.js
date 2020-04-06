@@ -21,7 +21,6 @@ import * as serviceWorker from "./serviceWorker";
 
 registerWebSocket("ws://localhost:3000");
 
-// ReactDOM.render(<App />, document.getElementById("root"));
 ReactDOM.render(
   <Provider store={store}>
     <BrowserRouter>

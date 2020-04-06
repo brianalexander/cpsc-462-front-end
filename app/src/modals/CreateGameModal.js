@@ -1,10 +1,18 @@
-import React from "react";
+import React, { useState } from "react";
 
 import Spinner from "react-bootstrap/Spinner";
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
 
 function CreateGameModal(props) {
+  const [createGameSpinnerShow, setCreateGameSpinnerShow] = useState(false);
+
+  const handleClick = async (event) => {
+    setCreateGameSpinnerShow(true);
+    await props.onClick();
+    setCreateGameSpinnerShow(false);
+  };
+
   return (
     <Modal
       show={props.show}
@@ -23,8 +31,8 @@ function CreateGameModal(props) {
         <Button onClick={props.onHide} variant="danger">
           Cancel
         </Button>
-        <Button onClick={props.handleCreateGame} variant="success">
-          {props.showSpinner ? (
+        <Button onClick={handleClick} variant="success">
+          {createGameSpinnerShow ? (
             <Spinner
               as="span"
               animation="border"

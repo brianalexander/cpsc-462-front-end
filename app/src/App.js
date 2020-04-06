@@ -1,10 +1,5 @@
 // React Imports
 import React, { useState } from "react";
-import Container from "react-bootstrap/Container";
-import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
-import Button from "react-bootstrap/Button";
-import { Form } from "react-bootstrap";
 
 // Redux Imports
 import { connect } from "react-redux";
@@ -17,21 +12,21 @@ import { Switch, Route } from "react-router-dom";
 import "./App.css";
 
 // Pages
-import Home from "./pages/Home";
+import LoginOrHome from "./pages/LoginOrHome";
 import TicTacToe from "./pages/TicTacToe";
 
-const App = props => {
+const App = (props) => {
   return (
     <div>
       <Switch>
-        <Route exact path="/" component={Home} />
-        <Route exact path="/game/:id" component={TicTacToe} />
+        <Route exact path="/" component={LoginOrHome} />
+        <Route exact path="/tictactoe/:id" component={TicTacToe} />
       </Switch>
     </div>
   );
 };
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {};
 };
 
