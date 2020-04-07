@@ -1,18 +1,21 @@
 // Redux Imports
 import store from "../redux/store";
-import { addUser, removeUser } from "../redux/userListSlice";
-import {
-  addPublicMessage,
-  addGameMessage,
-  addPrivateMessage
-} from "../redux/chatSlice";
+import { addUser } from "../redux/userListSlice";
+import { setStatus } from "../redux/websocketSlice";
+import { addPublicMessage, addPrivateMessage } from "../redux/chatSlice";
 import { refreshLobby } from "../redux/lobbySlice";
 
 const registerWebSockets = (connectionURI = "ws://localhost:3000") => {
   socket = new WebSocket(connectionURI);
 
-  socket.onopen = function(evt) {
+  socket.onopen = function (evt) {
     console.log(`Successfully connected to ${connectionURI}`);
+    store.dispatch(setStatus(WebSocket.OPEN));
+  };
+
+  socket.onclose = function (evt) {
+    console.log(`Disconnected.`);
+    store.dispatch(setStatus(WebSocket.CLOSED));
   };
 
   socket.onmessage = ({ data }) => {

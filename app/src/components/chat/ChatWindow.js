@@ -25,10 +25,4 @@ const ChatWindow = props => {
   );
 };
 
-// componentWillUnmount() {
-//   if (this.state.socket !== null) {
-//     this.state.socket.close();
-//   }
-// }
-
 export default ChatWindow;
