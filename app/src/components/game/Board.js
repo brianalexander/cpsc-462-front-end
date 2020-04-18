@@ -1,5 +1,10 @@
 import React from "react";
 import Square from "./Square";
+import './board.css';
+import styled, { keyframes } from 'styled-components';
+import { slideInDown } from 'react-animations';
+
+const Slide = styled.div`animation: 3s ${keyframes` ${slideInDown}`}`;
 
 class Board extends React.Component {
   renderSquare(i) {
@@ -14,7 +19,7 @@ class Board extends React.Component {
   render() {
     return (
       <div>
-        <div className="board-row">
+        <Slide><div className="board-row">
           {this.renderSquare(0)}
           {this.renderSquare(1)}
           {this.renderSquare(2)}
@@ -28,7 +33,7 @@ class Board extends React.Component {
           {this.renderSquare(6)}
           {this.renderSquare(7)}
           {this.renderSquare(8)}
-        </div>
+        </div></Slide>
       </div>
     );
   }
