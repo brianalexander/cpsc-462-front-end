@@ -1,5 +1,5 @@
 // React Imports
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
@@ -25,26 +25,28 @@ import Lobby from "../components/lobby/Lobby";
 const Home = ({ auth, websocket }) => {
   const [createGameModalShow, setCreateGameModalShow] = useState(false);
 
-  if (websocket.status === WebSocket.CLOSED) {
-    // TODO: toast disconnected!
-  } else if (websocket.status === WebSocket.OPEN) {
-    // TODO: toast connected
-    try {
-      socket.send(messageMaker("register-user", { jwt: auth.jwt }));
-    } catch (error) {
-      console.log(error);
+  useEffect(() => {
+    if (websocket.status === WebSocket.CLOSED) {
+      // TODO: toast disconnected!
+    } else if (websocket.status === WebSocket.OPEN) {
+      // TODO: toast connected
+      try {
+        socket.send(messageMaker("register-user", { jwt: auth.jwt }));
+      } catch (error) {
+        console.log(error);
+      }
+    } else if (websocket.status === WebSocket.CONNECTING) {
+      // TODO: toast connecting...
     }
-  } else if (websocket.status === WebSocket.CONNECTING) {
-    // TODO: toast connecting...
-  }
+  }, []);
 
   const history = useHistory();
   const dispatch = useDispatch();
 
   const createGame = async () => {
-    dispatch(createTicTacToeGame({ name: "randomName" }))
-      .then(({ payload }) => {
-        history.push(`game/${payload.id}`);
+    dispatch(createTicTacToeGame({ jwt: auth.jwt, name: "randomName" }))
+      .then(({ payload: game }) => {
+        history.push(`tictactoe/${game.id}`);
       })
       .catch((args) => {
         console.log("ERROR", args);

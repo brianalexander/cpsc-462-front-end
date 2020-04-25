@@ -4,6 +4,7 @@ import { addUser } from "../redux/userListSlice";
 import { setStatus } from "../redux/websocketSlice";
 import { addPublicMessage, addPrivateMessage } from "../redux/chatSlice";
 import { refreshLobby } from "../redux/lobbySlice";
+import { updateGame } from "../redux/gameSlice";
 
 const registerWebSockets = (connectionURI = "ws://localhost:3000") => {
   socket = new WebSocket(connectionURI);
@@ -24,6 +25,10 @@ const registerWebSockets = (connectionURI = "ws://localhost:3000") => {
     switch (type) {
       case "refresh-games":
         store.dispatch(refreshLobby(payload));
+        break;
+      case "game-state":
+        console.log('GAME-STATE')
+        store.dispatch(updateGame(payload));
         break;
       case "userlist":
         store.dispatch(addUser(payload));
