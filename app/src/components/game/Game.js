@@ -7,6 +7,8 @@ import "./game.css";
 import { socket } from "../../websockets";
 import { messageMaker } from "../../websockets/functions";
 
+import * as speechCommands from "@tensorflow-models/speech-commands";
+
 class Game extends React.Component {
   constructor(props) {
     super(props);
@@ -60,11 +62,67 @@ class Game extends React.Component {
     });
   }
 
+  async createModel() {
+    const URL = "https://teachablemachine.withgoogle.com/models/RskP5tUUT/";
+    const checkpointURL = URL + "model.json"; // model topology
+    const metadataURL = URL + "metadata.json"; // model metadata
+
+    const recognizer = speechCommands.create(
+        "BROWSER_FFT", // fourier transform type, not useful to change
+        undefined, // speech commands vocabulary feature, not useful for your models
+        checkpointURL,
+        metadataURL);
+
+    // check that model and metadata are loaded via HTTPS requests.
+    await recognizer.ensureModelLoaded();
+
+    return recognizer;
+  }
+
+  async componentDidMount() {
+    const recognizer = await this.createModel();
+    const classLabels = recognizer.wordLabels(); // get class labels
+    const locationDict = {
+      "buttom" : 7,
+      "center" : 4,
+      "left" : 3,
+      "right" : 5,
+      "top" : 1
+    };
+
+    recognizer.listen(result => {
+        const scores = result.scores; // probability of prediction for each class
+        let maxScore = 0.0, maxIdx = -1;
+        for (let i = 0; i < classLabels.length; i++) {
+          if (result.scores[i] > maxScore) {
+            maxScore = result.scores[i];
+            maxIdx = i;            
+          }          
+        }
+
+        if (classLabels[maxIdx] in locationDict) {
+          //alert(classLabels[maxIdx] + ": " + locationDict[classLabels[maxIdx]]);
+          this.handleClick(locationDict[classLabels[maxIdx]]);
+        }        
+        // render the probability scores per class
+        // for (let i = 0; i < classLabels.length; i++) {
+        //     const classPrediction = classLabels[i] + ": " + result.scores[i].toFixed(2);
+        //     labelContainer.childNodes[i].innerHTML = classPrediction;
+        // }
+    }, {
+        includeSpectrogram: true, // in case listen should return result.spectrogram
+        probabilityThreshold: 0.75,
+        invokeCallbackOnNoiseAndUnknown: true,
+        overlapFactor: 0.50 // probably want between 0.5 and 0.75. More info in README
+    });
+
+  }
+
   render() {
     console.log("PROPS", this.props);
     const history = this.props.history;
     const current = history[this.props.stepNumber];
-    const winner = calculateWinner(current.squares);
+    const winner = calculateWinner(current.squares);    
 
     const moves = history.map((step, move) => {
       const desc = move ? "Go to move #" + move : "Go to game start";

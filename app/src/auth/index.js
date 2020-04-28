@@ -8,7 +8,6 @@ export const isValidAndAuthorized = (token, time = null, permissions = []) => {
     time = Math.floor(time / 1000);
 
     let result = true;
-
     // is expired?
     result &= decoded.exp - time > 0;
 
