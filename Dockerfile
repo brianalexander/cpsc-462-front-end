@@ -8,6 +8,8 @@ WORKDIR /usr/src/app
 COPY ./app/package*.json /usr/src/app/
 RUN npm install
 
+RUN npm install @tensorflow/tfjs
+RUN npm i @tensorflow-models/speech-commands
 
 # Bundle app source
 COPY ./app /usr/src/app
