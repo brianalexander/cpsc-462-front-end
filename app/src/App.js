@@ -15,6 +15,9 @@ import "./App.css";
 import LoginOrHome from "./pages/LoginOrHome";
 import TicTacToe from "./pages/TicTacToe";
 
+//Game
+import Game from "./components/game/Game";
+
 const App = (props) => {
   return (
     <div>
@@ -22,6 +25,7 @@ const App = (props) => {
         <Route exact path="/" component={LoginOrHome} />
         <Route exact path="/tictactoe/:id" component={TicTacToe} />
       </Switch>
+      <Game />
     </div>
   );
 };
