@@ -63,7 +63,7 @@ class Game extends React.Component {
   }
 
   async createModel() {
-    const URL = "https://teachablemachine.withgoogle.com/models/RskP5tUUT/";
+    const URL = "https://teachablemachine.withgoogle.com/models/x-5uxW2ku/";
     const checkpointURL = URL + "model.json"; // model topology
     const metadataURL = URL + "metadata.json"; // model metadata
 
@@ -83,11 +83,15 @@ class Game extends React.Component {
     const recognizer = await this.createModel();
     const classLabels = recognizer.wordLabels(); // get class labels
     const locationDict = {
-      "buttom" : 7,
-      "center" : 4,
+      "top left" : 0,
+      "top" : 1,
+      "top right" : 2,
       "left" : 3,
-      "right" : 5,
-      "top" : 1
+      "center" : 4,      
+      "right" : 5,      
+      "bottom left" : 6,
+      "bottom" : 7,
+      "bottom right" : 8
     };
 
     recognizer.listen(result => {
