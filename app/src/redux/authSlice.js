@@ -7,43 +7,43 @@ import jwtDecode from "jwt-decode";
 //   return new Promise(resolve => setTimeout(resolve, ms));
 // }
 
-export const registerUser = createAsyncThunk(
-  "user/registerUser",
-  async (user, thunkAPI) => {
-    const response = await axios.post("http://localhost:3000/user", user);
-    return response.data;
-  }
-);
+// export const registerUser = createAsyncThunk(
+//   "user/registerUser",
+//   async (user, thunkAPI) => {
+//     const response = await axios.post("http://localhost:3000/user", user);
+//     return response.data;
+//   }
+// );
 
-let initialState = {};
+let initialState = { jwt: null };
 
 const authSlice = createSlice({
   name: "auth",
   initialState,
   reducers: {
-    // setUserFromJWT(state, action) {
-    //   const { exp, data } = jwtDecode(action.payload);
-    //   state.user = data.username;
-    //   state.exp = exp;
-    //   state.jwt = action.payload;
-    // }
-  },
-  extraReducers: {
-    [registerUser.fulfilled]: (state, action) => {
+    setUserFromJwt(state, action) {
       const { exp, data } = jwtDecode(action.payload);
-
-      state.user = data.username;
+      state.user = data.user;
       state.exp = exp;
       state.jwt = action.payload;
     },
-    [registerUser.pending]: (state, action) => {
-      console.log("PENDING");
-    },
-    [registerUser.rejected]: (state, action) => {
-      console.log("ERROR");
-    },
   },
+  // extraReducers: {
+  //   [registerUser.fulfilled]: (state, action) => {
+  //     const { exp, data } = jwtDecode(action.payload);
+
+  //     state.user = data.username;
+  //     state.exp = exp;
+  //     state.jwt = action.payload;
+  //   },
+  //   [registerUser.pending]: (state, action) => {
+  //     console.log("PENDING");
+  //   },
+  //   [registerUser.rejected]: (state, action) => {
+  //     console.log("ERROR");
+  //   },
+  // },
 });
 
-// export const { setUserFromJWT } = authSlice.actions;
+export const { setUserFromJwt } = authSlice.actions;
 export default authSlice.reducer;

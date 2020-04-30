@@ -1,10 +1,8 @@
 // Redux Imports
 import store from "../redux/store";
-import { addUser } from "../redux/userListSlice";
 import { setStatus } from "../redux/websocketSlice";
-import { addPublicMessage, addPrivateMessage } from "../redux/chatSlice";
-import { refreshLobby } from "../redux/lobbySlice";
 import { updateGame } from "../redux/gameSlice";
+import { setUserFromJwt } from "../redux/authSlice";
 
 const registerWebSockets = (connectionURI = "ws://localhost:3000") => {
   socket = new WebSocket(connectionURI);
@@ -23,27 +21,13 @@ const registerWebSockets = (connectionURI = "ws://localhost:3000") => {
     const { type, payload } = JSON.parse(data);
     // console.log(type, payload);
     switch (type) {
-      case "refresh-games":
-        store.dispatch(refreshLobby(payload));
-        break;
       case "game-state":
-        console.log('GAME-STATE')
+        console.log("websocket", "game-state");
         store.dispatch(updateGame(payload));
         break;
-      case "userlist":
-        store.dispatch(addUser(payload));
-        break;
-      case "connected":
-        {
-          const { id } = payload;
-          socket.id = id;
-        }
-        break;
-      case "private":
-        store.dispatch(addPrivateMessage(payload));
-        break;
-      case "public":
-        store.dispatch(addPublicMessage(payload));
+      case "connect-game-response":
+        console.log("websocket", "connect-game-response");
+        store.dispatch(setUserFromJwt(payload.jwt));
         break;
       default:
         break;
