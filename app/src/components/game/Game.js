@@ -2,6 +2,8 @@ import React from "react";
 import Board from "./Board";
 import { connect } from "react-redux";
 
+import Button from "react-bootstrap/Button";
+
 import "./game.css";
 
 import { socket } from "../../websockets";
@@ -12,15 +14,6 @@ import * as speechCommands from "@tensorflow-models/speech-commands";
 class Game extends React.Component {
   constructor(props) {
     super(props);
-    // this.state = {
-    //   history: [
-    //     {
-    //       squares: Array(9).fill(null),
-    //     },
-    //   ],
-    //   stepNumber: 0,
-    //   xIsNext: true,
-    // };
   }
 
   handleClick(i) {
@@ -31,9 +24,10 @@ class Game extends React.Component {
       return;
     }
     squares[i] = this.props.xIsNext ? "X" : "O";
+    console.log("THIS.PROPS", this.props.room);
     socket.send(
       messageMaker("game-state", {
-        id: this.props.id,
+        id: this.props.room,
         jwt: this.props.jwt,
         state: {
           history: history.concat([
@@ -57,7 +51,7 @@ class Game extends React.Component {
 
     socket.send(
       messageMaker("game-state", {
-        id: this.props.id,
+        id: this.props.room,
         jwt: this.props.jwt,
         state: {
           stepNumber: step,
@@ -131,6 +125,14 @@ class Game extends React.Component {
     );
   }
 
+  newGameHandler() {
+    socket.send(
+      messageMaker("new-game", {
+        jwt: this.props.jwt,
+      })
+    );
+  }
+
   render() {
     console.log("PROPS", this.props);
     const history = this.props.history;
@@ -155,6 +157,9 @@ class Game extends React.Component {
 
     return (
       <div className="game">
+        <Button variant="primary" onClick={() => this.newGameHandler()}>
+          New Game
+        </Button>
         <div className="game-board">
           <Board
             squares={current.squares}

@@ -30,6 +30,9 @@ const gameSlice = createSlice({
       state.state = game;
       console.log("GAMESTATE", state);
     },
+    resetGame: (state, action) => {
+      state = { state: null };
+    },
   },
   // extraReducers: (builder) => {
   //   builder.addCase(createTicTacToeGame.fulfilled, (state, action) => {
@@ -49,5 +52,5 @@ const gameSlice = createSlice({
   // },
 });
 
-export const { updateGame } = gameSlice.actions;
+export const { resetGame, updateGame } = gameSlice.actions;
 export default gameSlice.reducer;
